@@ -1,2 +1,0 @@
-# Weels
-Java_Project
