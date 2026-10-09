@@ -1,0 +1,736 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Weels - Toy Car Dealership</title>
+
+    <style>
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html, body {
+            min-height: 100%;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            color: #222;
+            overflow-x: hidden;
+        }
+
+        /* =========================================
+           MAIN PAGE / BACKGROUND
+           ========================================= */
+
+        .page {
+            min-height: 100vh;
+
+            background-image:
+                linear-gradient(
+                    rgba(255,255,255,0.64),
+                    rgba(255,255,255,0.64)
+                ),
+                url("images/car-background.png");
+
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+
+            position: relative;
+        }
+
+
+        /* =========================================
+           HEADER
+           ========================================= */
+
+        .header {
+            height: 95px;
+
+            background: rgba(25,25,25,0.97);
+
+            color: white;
+
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+
+            padding: 0 65px;
+
+            position: relative;
+            z-index: 10;
+
+            box-shadow:
+                0 4px 18px rgba(0,0,0,0.28);
+        }
+
+        .logo h1 {
+            font-size: 32px;
+            letter-spacing: 3px;
+            margin-bottom: 4px;
+        }
+
+        .logo p {
+            font-size: 15px;
+            color: #cccccc;
+        }
+
+        .nav {
+            display: flex;
+            gap: 38px;
+        }
+
+        .nav a {
+            color: white;
+            text-decoration: none;
+            font-size: 17px;
+        }
+
+        .nav a:hover {
+            color: #dddddd;
+        }
+
+
+        /* =========================================
+           MAIN
+           ========================================= */
+
+        .main {
+            position: relative;
+            z-index: 2;
+
+            min-height: calc(100vh - 175px);
+
+            padding: 78px 40px 45px;
+        }
+
+
+        /* =========================================
+           WELCOME GLASS BOX
+           ========================================= */
+
+        .welcome-box {
+
+            width: 545px;
+            max-width: 90%;
+
+            margin: 0 auto 42px;
+
+            text-align: center;
+
+            padding: 22px 35px;
+
+            background: rgba(238,238,238,0.78);
+
+            border: 1px solid rgba(255,255,255,0.95);
+
+            border-radius: 18px;
+
+            box-shadow:
+                0 12px 28px rgba(0,0,0,0.15),
+                inset 0 1px 0 rgba(255,255,255,0.9);
+
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .welcome-box h2 {
+            font-size: 36px;
+            margin-bottom: 9px;
+
+            color: #202020;
+        }
+
+        .welcome-box p {
+            font-size: 19px;
+            color: #4c4c4c;
+        }
+
+
+        /* =========================================
+           CARDS
+           ========================================= */
+
+        .cards {
+
+            width: 100%;
+            max-width: 1350px;
+
+            margin: 0 auto;
+
+            display: grid;
+
+            grid-template-columns:
+                repeat(4, 1fr);
+
+            gap: 22px;
+        }
+
+
+        .card {
+
+            min-height: 455px;
+
+            border-radius: 17px;
+
+            overflow: hidden;
+
+            /* Glass effect */
+            background:
+                linear-gradient(
+                    rgba(255,255,255,0.72),
+                    rgba(255,255,255,0.72)
+                );
+
+            border:
+                1px solid rgba(255,255,255,0.95);
+
+            box-shadow:
+                0 18px 38px rgba(0,0,0,0.22),
+                0 5px 12px rgba(0,0,0,0.10);
+
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            display: flex;
+            flex-direction: column;
+
+            transition:
+                transform 0.25s ease,
+                box-shadow 0.25s ease;
+        }
+
+
+        .card:hover {
+
+            transform: translateY(-8px);
+
+            box-shadow:
+                0 27px 48px rgba(0,0,0,0.26),
+                0 8px 15px rgba(0,0,0,0.12);
+        }
+
+
+        /* =========================================
+           DIFFERENT CARD IMAGES
+           ========================================= */
+
+        .card-image {
+
+            height: 175px;
+
+            position: relative;
+
+            overflow: hidden;
+
+            border-bottom:
+                1px solid rgba(255,255,255,0.8);
+        }
+
+
+        .card-image::after {
+
+            content: "";
+
+            position: absolute;
+
+            inset: 0;
+
+            background:
+                linear-gradient(
+                    to bottom,
+                    rgba(255,255,255,0.05),
+                    rgba(255,255,255,0.22)
+                );
+
+            pointer-events: none;
+        }
+
+
+        .card-image img {
+
+            width: 100%;
+            height: 100%;
+
+            object-fit: cover;
+
+            display: block;
+
+            filter:
+                saturate(0.9)
+                brightness(1.02);
+
+            transition:
+                transform 0.3s ease;
+        }
+
+
+        .card:hover .card-image img {
+            transform: scale(1.04);
+        }
+
+
+        /*
+         * Each card uses a different part
+         * of the original car photograph.
+         */
+
+        .image-one img {
+            object-position: 10% 20%;
+        }
+
+        .image-two img {
+            object-position: 40% 30%;
+        }
+
+        .image-three img {
+            object-position: 70% 55%;
+        }
+
+        .image-four img {
+            object-position: 92% 55%;
+        }
+
+
+        /* =========================================
+           CARD CONTENT
+           ========================================= */
+
+        .card-content {
+
+            flex: 1;
+
+            padding:
+                27px 22px 22px;
+
+            text-align: center;
+
+            display: flex;
+            flex-direction: column;
+        }
+
+
+        .card-content h3 {
+
+            font-size: 25px;
+
+            margin-bottom: 15px;
+
+            color: #171717;
+        }
+
+
+        .card-content p {
+
+            font-size: 17px;
+
+            line-height: 1.55;
+
+            color: #555;
+
+            margin-bottom: 25px;
+        }
+
+
+        /* =========================================
+           BUTTON AREA
+           ========================================= */
+
+        .button-container {
+
+            margin-top: auto;
+        }
+
+
+        .button {
+
+            display: block;
+
+            width: 100%;
+
+            padding: 13px 15px;
+
+            background: #222;
+
+            color: white;
+
+            border-radius: 6px;
+
+            text-decoration: none;
+
+            font-size: 15px;
+
+            font-weight: bold;
+
+            transition:
+                background 0.2s ease,
+                transform 0.2s ease,
+                box-shadow 0.2s ease;
+        }
+
+
+        .button:hover {
+
+            background: #000;
+
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 7px 15px rgba(0,0,0,0.25);
+        }
+
+
+        .order-buttons {
+
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 10px;
+        }
+
+
+        /* =========================================
+           FOOTER
+           ========================================= */
+
+        .footer {
+
+            height: 80px;
+
+            background: rgba(25,25,25,0.97);
+
+            color: #bbbbbb;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-size: 14px;
+
+            position: relative;
+            z-index: 5;
+
+            box-shadow:
+                0 -4px 18px rgba(0,0,0,0.18);
+        }
+
+
+        /* =========================================
+           RESPONSIVE
+           ========================================= */
+
+        @media (max-width: 1100px) {
+
+            .cards {
+                grid-template-columns: repeat(2, 1fr);
+                max-width: 850px;
+            }
+
+        }
+
+
+        @media (max-width: 650px) {
+
+            .header {
+
+                height: auto;
+
+                padding: 22px 25px;
+
+                flex-direction: column;
+
+                gap: 18px;
+            }
+
+
+            .nav {
+                gap: 25px;
+            }
+
+
+            .main {
+
+                padding:
+                    40px 20px 50px;
+            }
+
+
+            .welcome-box h2 {
+
+                font-size: 29px;
+            }
+
+
+            .cards {
+
+                grid-template-columns: 1fr;
+
+                max-width: 450px;
+            }
+
+        }
+
+    </style>
+</head>
+
+
+<body>
+
+<div class="page">
+
+
+    <!-- =========================================
+         HEADER
+         ========================================= -->
+
+    <header class="header">
+
+        <div class="logo">
+
+            <h1>WEELS</h1>
+
+            <p>Toy Car Dealership</p>
+
+        </div>
+
+
+        <nav class="nav">
+
+            <a href="index.html">Home</a>
+
+            <a href="#">Profile</a>
+
+        </nav>
+
+    </header>
+
+
+
+    <!-- =========================================
+         MAIN
+         ========================================= -->
+
+    <main class="main">
+
+
+        <!-- WELCOME BOX -->
+
+        <div class="welcome-box">
+
+            <h2>Welcome to Weels</h2>
+
+            <p>Manage your cars</p>
+
+        </div>
+
+
+
+        <!-- =====================================
+             CARDS
+             ===================================== -->
+
+        <div class="cards">
+
+
+            <!-- VIEW CARS -->
+
+            <div class="card">
+
+                <div class="card-image image-one">
+
+                    <img
+                        src="images/car1.png"
+                        alt="Toy Cars">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>View Cars</h3>
+
+                    <p>
+                        Browse all toy cars currently
+                        available in the dealership.
+                    </p>
+
+
+                    <div class="button-container">
+
+                        <a
+                            class="button"
+                            href="ViewCarsServlet">
+
+                            View Inventory
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ADD CAR -->
+
+            <div class="card">
+
+                <div class="card-image image-two">
+
+                    <img
+                        src="images/car2.png"
+                        alt="Add Toy Car">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>Add Car</h3>
+
+                    <p>
+                        Add a new toy car and store its
+                        details in the database.
+                    </p>
+
+
+                    <div class="button-container">
+
+                        <a
+                            class="button"
+                            href="AddCarServlet">
+
+                            Add New Car
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- MANAGE INVENTORY -->
+
+            <div class="card">
+
+                <div class="card-image image-three">
+
+                    <img
+                        src="images/car3.png"
+                        alt="Car Inventory">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>Manage Inventory</h3>
+
+                    <p>
+                        Update existing cars or remove
+                        cars from the inventory.
+                    </p>
+
+
+                    <div class="button-container">
+
+                        <a
+                            class="button"
+                            href="ManageCarsServlet">
+
+                            Manage Cars
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+
+            <!-- ORDERS -->
+
+            <div class="card">
+
+                <div class="card-image image-four">
+
+                    <img
+                        src="images/car4.png"
+                        alt="Toy Car Orders">
+
+                </div>
+
+
+                <div class="card-content">
+
+                    <h3>View Orders</h3>
+
+                    <p>
+                        View customer orders and check
+                        the current order status.
+                    </p>
+
+
+                    <div class="button-container order-buttons">
+
+                        <a
+                            class="button"
+                            href="ViewOrdersServlet">
+
+                            View Orders
+
+                        </a>
+
+
+                        <a
+                            class="button"
+                            href="ManageOrdersServlet">
+
+                            Manage Orders
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+
+
+    <!-- =========================================
+         FOOTER
+         ========================================= -->
+
+    <footer class="footer">
+
+        © 2026 Weels Toy Car Dealership
+
+    </footer>
+
+
+</div>
+
+</body>
+</html>
